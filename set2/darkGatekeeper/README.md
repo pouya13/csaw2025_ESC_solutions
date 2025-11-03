@@ -50,3 +50,5 @@ Our implementation recovered the key `7N4>qp14c70!` (with the flag `ESC{J0lt_Th3
 5. Continue iterating symbols until all 12 positions are filled or the device accepts the full key.
 
 The peaks approach can recover multiple positions from a single candidate symbol because correct characters shift peak positions in predictable ways. This makes it far more query-efficient than the per-position Euclidean search. The maximum number of queries is 94 (number of ascii characters what we check). Our implementation is was able to recover the key `7N4>qp14c70!` in 83 queries.
+
+Note: The peak detection threshold needs to be set through testing. Reconnecting the CWNANO/re-uploading the firmware can change the absolute power values, even if the overall pattern stays the same. Currently, the threshold may need to be adjusted manually for each run. With a bit more time for implementation, this could be automated to adjust automatically to changes in the trace.

@@ -38,7 +38,7 @@ Each comparison involves two queries:
 The maximum number of queries for a 15-byte (8-bit per value) key is:
 * 15 values
 * multiplied by 2 queries per comparison
-* multiplied by 8 iterations per binary search (`log₂(2⁸)`)
+* multiplied by 8 iterations per binary search (`log2(2^8)`)
 * plus 2 reference queries per value
 
 = 270 queries in total.

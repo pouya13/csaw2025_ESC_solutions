@@ -8,4 +8,27 @@ Number of queries: 256
 
 # Approach
 
-*I'll fill this a bit later*
+This target is similar to *Sorters Song* (set 1, challenge 2), and our approach is almost the same as in that challenge. 
+
+The target internally uses merge sort, and the original key is kept unsorted.
+Our code captures the power trace of the sorting operation, but since merge sort can generate traces that are lenghty to capture in full on the CWNANO, we only analyze the first comparison of the leftmost two elements.
+
+First, we insert the smallest possible value (`0x0000`) and capture its trace. This trace represents the case with no shift operations, and we use it as a reference for comparison.
+
+Next, we perform a binary search to find each element of the key:
+
+* For each guessed value, we capture a new sorting trace for the first left comparison.
+* We compare it to the reference trace using the Euclidean distance (`numpy.linalg.norm` in Python).
+* Based on the distance, we decide whether to adjust the lower or upper bound of the search range.
+
+We repeat this process for all 15 key values. Each comparison involves `reset()` (which does not icrement the number of queries) and `get_pt()`, which returns traces of sorting (and increments the number of queries)
+
+The maximum number of queries for a 15-element (16-bit per value) key is:
+* 15 values
+* multiplied by 1 query per comparison
+* multiplied by 16 iterations per binary search (`log2(2^16)`)
+* plus 1 reference query per value
+
+= 255 in total. Plus, one query for `check_array()`
+
+Our implementation recovered the flag `eoc{th3yreC00ked}   ` in exactly 256 queries.
