@@ -32,3 +32,33 @@ The maximum number of queries for a 15-element (16-bit per value) key is:
 = 255 in total. Plus, one query for `check_array()`
 
 Our implementation recovered the flag `eoc{th3yreC00ked}   ` in exactly 256 queries.
+
+
+
+
+#######
+
+Apparently, the code it's not stable enough and can require a couple of re-runs, see:
+```
+krogova:echoesOfChaos$ python3 echoesOfChaos.py 
+Detected known STMF32: STM32F04xxx
+Extended erase (0x44), this can take ten seconds or more
+Attempting to program 14307 bytes at 0x8000000
+STM32F Programming flash...
+STM32F Reading flash...
+Verified flash OK, 14307 bytes
+Key found: ['0x2b9', '0x1988', '0x2384', '0x369f', '0x4ca1', '0x4ca1', '0x6582', '0x6d3c', '0x73a0', '0x8cf0', '0xa56d', '0xb3ac', '0xe594', '0xfcec', '0xfdda']
+Flag found: bytearray(b'q3L!x9bX2f@mV#6dWrx\n')
+Number of queries: 256
+
+krogova:echoesOfChaos$ python3 echoesOfChaos.py 
+Detected known STMF32: STM32F04xxx
+Extended erase (0x44), this can take ten seconds or more
+Attempting to program 14307 bytes at 0x8000000
+STM32F Programming flash...
+STM32F Reading flash...
+Verified flash OK, 14307 bytes
+Key found: ['0x2b9', '0x1988', '0x2384', '0x369f', '0x4ca1', '0x6582', '0x6d3c', '0x73a0', '0x8cf0', '0xa56d', '0xb3ac', '0xc034', '0xe594', '0xfcec', '0xfdda']
+Flag found: bytearray(b'eoc{th3yreC00ked}   ')
+Number of queries: 256
+```
