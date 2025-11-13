@@ -14,7 +14,7 @@ TARGET_BIN_PATH = f"../../../csaw_esc_2025/challenges/set2/darkGatekeeper-CWNANO
 RESPONSE_LEN = 18
 SYMBOLS = string.digits + string.ascii_letters + string.punctuation
 # PEAK_THRESHOLD_LOW = 0.255
-PEAK_THRESHOLD_LOW = 0.16
+PEAK_THRESHOLD_LOW = 0.1
 PEAK_THRESHOLD_HIGH = 0.4
 
 # Sets up scope and target
@@ -41,7 +41,7 @@ def send(scope: cw.scopes.ScopeTypes, target: cw.targets.TargetTypes, msg: bytea
     trace = scope.get_last_trace()
 
     # idle state should be cut off from the trace
-    return response, trace[:200]
+    return response, trace[:188]
 
 
 def print_stats(flag, key, queries):
@@ -52,18 +52,6 @@ def print_stats(flag, key, queries):
     print(f"\t Number of queries: {queries}")
     print(f"\t Peaks height: {PEAK_THRESHOLD_LOW}")
 
-
-def normalize_peaks(peaks):
-    res = []
-    last = None
-    peaks = peaks[1:]
-
-    for p in peaks:
-        if last is None or (p - last) > 3:
-            res.append(p)
-            last = p
-    
-    return res[2:]
 
 # Some examples of peaks (on cwnano):
 #   input: aaaaaaaaaaaa
@@ -94,8 +82,8 @@ if __name__ == "__main__":
 
     key = bytearray(b'\x00' * 12)
     res, trace = send(scope, target, key)
-    incorrect_peaks, _ = find_peaks(trace[3:], height=PEAK_THRESHOLD_LOW, distance=12)
-    incorrect_peaks = incorrect_peaks[1:]
+    incorrect_peaks, _ = find_peaks(trace, height=PEAK_THRESHOLD_LOW, distance=12)
+    incorrect_peaks = incorrect_peaks[2:]
 
     if len(incorrect_peaks) != 12:
         print(f"Num of peaks is incorrect (curr num: {len(incorrect_peaks)}), adjust threshhold. Peaks: {incorrect_peaks}")
@@ -112,9 +100,8 @@ if __name__ == "__main__":
         _, new_trace = send(scope, target, msg)
         queries += 1
 
-        new_peaks, _ = find_peaks(new_trace[3:], height=PEAK_THRESHOLD_LOW, distance=12)
-        if new_peaks[0] < 17:
-            new_peaks = new_peaks[1:]
+        new_peaks, _ = find_peaks(new_trace, height=PEAK_THRESHOLD_LOW, distance=12)
+        new_peaks = new_peaks[2:]
 
         if len(new_peaks) != len(incorrect_peaks):
             print(f"ooops, something went wrong. Incorrect peaks num: {len(incorrect_peaks)}, New peaks num: {len(new_peaks)}, {new_peaks}")
