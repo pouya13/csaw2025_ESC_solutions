@@ -1,6 +1,6 @@
 # csaw2025_ESC_solutions
 
-This repository contains the solutions submitted by ***Meoginal Leaks*** to the [CSAW Embedded Security Challenge (ESC) 2025](https://github.com/pouya13/csaw2025_ESC_solutions).
+This repository contains the solutions submitted by ***Meoginal Leaks*** to the [CSAW Embedded Security Challenge (ESC) 2025](https://github.com/TrustworthyComputing/csaw_esc_2025/tree/main).
 
 Meoginal Leaks is the team from the CISPA Helmholtz Center for Information Security in Saarbrücken, Germany.
 
