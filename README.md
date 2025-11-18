@@ -2,6 +2,12 @@
 
 This repository contains the solutions submitted by ***Meoginal Leaks*** to the [CSAW Embedded Security Challenge (ESC) 2025](https://github.com/TrustworthyComputing/csaw_esc_2025/tree/main).
 
+<p align="center">
+  <img src="./logo/MeoginalLeaks_logo.png" width="200" alt="Logo">
+</p>
+
+##
+
 Meoginal Leaks is the team from the CISPA Helmholtz Center for Information Security in Saarbrücken, Germany.
 
 The team members are Pouya Narimani and Kseniia Rogova, advised by Dr. Ali Abbasi.
